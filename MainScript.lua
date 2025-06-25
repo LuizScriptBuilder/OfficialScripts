@@ -1,3 +1,17 @@
+-- Language Detection
+local LocalizationService = game:GetService("LocalizationService")
+local RawLocale = LocalizationService.RobloxLocaleId:lower()
+local LocalSystemLanguage
+
+if RawLocale == "pt_br" or RawLocale == "pt-br" then
+    LocalSystemLanguage = "pt-br"
+else
+    LocalSystemLanguage = "en-us"
+end
+
+shared.LocalSystemLanguage = LocalSystemLanguage
+
+-- Heartbeat Throttle
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 
@@ -15,12 +29,13 @@ local function ThrottledConnect(Function)
     end)
 end
 
+-- Supported Places Mapping
 local SupportedPlaces = {
     [11102162413] = "Minicup"
 }
 
-local PlaceId    = game.PlaceId
-local ScriptKey  = SupportedPlaces[PlaceId]
+local PlaceId   = game.PlaceId
+local ScriptKey = SupportedPlaces[PlaceId]
 
 if ScriptKey then
     local Url = ("https://raw.githubusercontent.com/LuizScriptBuilder/OfficialScripts/refs/heads/main/Games/%s.lua"):format(ScriptKey)
@@ -37,7 +52,7 @@ if ScriptKey then
 else
     StarterGui:SetCore("SendNotification", {
         Title    = "Failed",
-        Text     = "This Game Is Not Supported On This Script",
+        Text     = "This Game Is Not Supported By This Script",
         Duration = 5
     })
     wait(1)
